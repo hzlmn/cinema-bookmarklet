@@ -53,20 +53,8 @@ function boot(): void {
 
     const videoPlayer = document.querySelector('.fp-engine')
     const playerUI = document.querySelector('.fp-ui')
-
-    playerUI.addEventListener('click', (event) => {
-      event.stopPropagation()
-      console.info('Player selected')
-    })
-
-    playerUI.addEventListener('mouseenter', () => {
-      var styles = String((<HTMLStyleElement>playerUI).style).concat(' border: 3px solid lightblue')
-      playerUI.setAttribute('style', styles)
-    })
-
-    playerUI.addEventListener('mouseleave', () => {
-      playerUI.setAttribute('style', '')
-    })
+    var ui = (<HTMLElement>playerUI)
+    ui.click()
 
   }).catch((error) => {
     console.error('Error while fetching resources', error)
