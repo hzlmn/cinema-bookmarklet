@@ -13,7 +13,7 @@ const resourcesList: Array<string> = [
 ]
 
 function createStyle(src: string): HTMLElement {
-  var style: HTMLStyleElement = document.createElement('style')
+  var style: HTMLStyleElement = document.createElement('link')
   style.setAttribute('rel', 'stylesheet')
   style.setAttribute('href', src)
   return style
