@@ -2,7 +2,6 @@ const CDN_PROVIDER: string  = 'https://unpkg.com/'
 const SOCKET_URI: string = 'ws://localhost:9001'
 
 declare var io: any
-declare var swal: any
 
 const stylesList: Array<string> = [
   'sweetalert2@6.6.6/dist/sweetalert2.min.css',
@@ -45,7 +44,7 @@ function boot(): void {
     window['$socket'] = socket
 
     socket.on('connected', () => {
-      swal({
+      window['swal']({
         type: 'success',
         title: 'Connection established'
       })
