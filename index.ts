@@ -2,6 +2,7 @@ const CDN_PROVIDER: string  = 'https://unpkg.com/'
 const SOCKET_URI: string = 'ws://localhost:9001'
 
 declare var io: any
+declare var swal: any
 
 const stylesList: Array<string> = [
   'sweetalert2@6.6.6/dist/sweetalert2.min.css',
@@ -42,9 +43,14 @@ function boot(): void {
   Promise.all(pool).then(() => {
     const socket = io(SOCKET_URI)
     window['$socket'] = socket
+
     socket.on('connected', () => {
-      console.log('Connection established...')
+      swal({
+        type: 'success',
+        title: 'Connection established'
+      })
     })
+
   }).catch((error) => {
     console.error('Error while fetching resources', error)
   })
