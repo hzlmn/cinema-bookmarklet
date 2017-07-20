@@ -19,10 +19,17 @@ function createStyle(src: string): HTMLElement {
   return style
 }
 
-function createScript(src: string): HTMLElement {
-  var script: HTMLScriptElement = document.createElement('script')
-  script.setAttribute('src', src)
-  return script
+function asyncScript(src: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    var script: HTMLScriptElement = document.createElement('script')
+    script.setAttribute('src', src)
+    script.addEventListener('load', (event) => {
+      resolve(event)
+    })
+    script.addEventListener('error', (event) => {
+      reject(event)
+    })
+  })
 }
 
 function boot(): void {
@@ -30,16 +37,16 @@ function boot(): void {
     .map(elem => createStyle(CDN_PROVIDER.concat(elem)))
       .forEach(elem => document.head.appendChild(elem))
 
-  resourcesList
-    .map(elem => createScript(CDN_PROVIDER.concat(elem)))
-      .forEach(elem => document.body.appendChild(elem))
+  const pool = resourcesList.map(elem => asyncScript(CDN_PROVIDER.concat(elem)))
 
-  setTimeout(() => {
+  Promise.all(pool).then(() => {
     const socket = io(SOCKET_URI)
     window['$socket'] = socket
     socket.on('connected', () => {
-      console.log('Connected established...')
+      console.log('Connection established...')
     })
+  }).catch((error) => {
+    console.error('Error while fetching resources', error)
   })
 }
 
