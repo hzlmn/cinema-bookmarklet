@@ -1,0 +1,16 @@
+{
+  "name": "cinema-bookmarklet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "rollup.config.js",
+  "scripts": {
+    "dev": "rollup -c rollup.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rollup": "^0.45.2",
+    "rollup-plugin-typescript": "^0.8.1",
+    "rollup-plugin-uglify": "^2.0.1"
+  }
+}
