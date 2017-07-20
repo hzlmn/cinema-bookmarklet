@@ -29,6 +29,7 @@ function asyncScript(src: string): Promise<any> {
     script.addEventListener('error', (event) => {
       reject(event)
     })
+    document.body.appendChild(script)
   })
 }
 
